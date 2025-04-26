@@ -14,6 +14,7 @@ std::vector<double> range(double start, double stop, int points)
 	functions like np.linspace
 	*/
 
+
 	std::vector<double> r_range;
 	r_range.reserve(points);
 
