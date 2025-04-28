@@ -139,11 +139,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mathematics.cpp" />
     <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="potentials.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mathematics.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="potentials.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,13 +2,13 @@
 #include <vector>
 #include <Eigen/Dense>
 #include <numeric>
+#include <cmath>
 
 
 #include "matrix.h"
 #include "util.h"
 #include "mathematics.h"
-
-
+#include "potentials.h"
 
 
 int main() {
@@ -95,42 +95,21 @@ int main() {
 	for (int i = 0; i < N; ++i) {	// f(x) = x^2
 		f.push_back(x[i] * x[i]);
 	}
-
 	std::vector<double> d2f = ddiff(f, dx);
+	
+	write_xy_to_file(x, d2f, "./plot_data/x_d2f.txt");
 
-	for (int i = 0; i < N; ++i) {
-		std::cout << d2f[i] << std::endl;
-	}
+	std::vector<double> V = V_HO(x);
+	write_xy_to_file(x, V, "./plot_data/HO.txt");
 
+	std::vector<double> W = V_WS(x, 10);
+	write_xy_to_file(x, W, "./plot_data/WS.txt");
 
-
-
-
-
-
+	std::vector<double> Wprime = ddiff(W, dx);
+	write_xy_to_file(x, Wprime, "./plot_data/WSderivative.txt");
 
 }
 
 
 
-std::vector<double> V_HO(std::vector<double> r)
-{
-	double m = 1;
-	double E0 = -55;
-	double hw = 8.6;
-	double mc2 = 939.57;
-	double hc = 197.326;
 
-	double C = 2 * mc2 / (hc * hc);
-
-	std::vector<double> V;
-
-	V.reserve(r.size());	// allocate memory size(r) = N
-
-	for (auto ri : r) {
-		double e = (0.5 * (mc2) * (hw * hw) * (ri * ri) / (hc * hc)) + E0;	// calculate V(r_i)
-
-		V.push_back(C * e);
-	}
-	return V;
-}
