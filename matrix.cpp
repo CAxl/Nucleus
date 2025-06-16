@@ -1,5 +1,6 @@
 #include <vector>
 #include "matrix.h"
+#include <Eigen/Dense>
 
 
 
@@ -25,3 +26,26 @@ std::vector<double> range(double start, double stop, int points)
 
 	return r_range;
 }
+
+Eigen::MatrixXd IdMat(int N) {
+
+	Eigen::MatrixXd Id = Eigen::MatrixXd::Zero(N, N);
+	Id.diagonal(0).setConstant(1);
+
+	return Id;
+}
+
+
+Eigen::MatrixXd Laplacian(int N, double dx) {
+
+	Eigen::MatrixXd Lapl = Eigen::MatrixXd::Zero(N, N);
+	
+	Lapl.diagonal(0).setConstant(-2);
+	Lapl.diagonal(1).setConstant(1);
+	Lapl.diagonal(-1).setConstant(1);
+
+	Lapl = std::pow(1/dx,2) * Lapl;
+
+	return Lapl;
+}
+
