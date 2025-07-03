@@ -1,6 +1,7 @@
 #include <vector>
 #include "matrix.h"
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 
 
 

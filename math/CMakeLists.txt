@@ -11,7 +11,7 @@ set(EigenLib "${PROJECT_SOURCE_DIR}/libs/")
 
 target_include_directories("${PROJECT_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/source", 
 PUBLIC "${PROJECT_SOURCE_DIR}/include" 
-"${EigenLib}"
-
+"${PROJECT_SOURCE_DIR}/libs/"
+"${PROJECT_SOURCE_DIR}/libs/Spectra/include/"
 )
 
