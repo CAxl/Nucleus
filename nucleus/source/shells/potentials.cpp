@@ -4,7 +4,7 @@
 #include "potentials.h"
 
 
-std::vector<double> V_HO(std::vector<double>& r)
+std::vector<double> V_HO(const std::vector<double>& r)
 {
 	double m = 1;
 	double E0 = -55;
@@ -12,7 +12,7 @@ std::vector<double> V_HO(std::vector<double>& r)
 	double mc2 = 939.57;
 	double hc = 197.326;
 
-	double C = 2 * mc2 / (hc * hc);
+	//double C = 2 * mc2 / (hc * hc);
 
 	std::vector<double> V;
 
@@ -21,7 +21,7 @@ std::vector<double> V_HO(std::vector<double>& r)
 	for (auto ri : r) {
 		double e = (0.5 * (mc2) * (hw * hw) * (ri * ri) / (hc * hc)) + E0;	// calculate V(r_i)
 
-		V.push_back(C * e);
+		V.push_back(e);
 	}
 	return V;
 }

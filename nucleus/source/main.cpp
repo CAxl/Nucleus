@@ -18,31 +18,36 @@
 int main() {
 
 
-	/*----------- grid ------------------------------------ */
+	// discretization of x-range
 	int N = 100;
-	double dx = 0.01;
+	double dx = 0.1;
 	std::vector<double> r_std = range(dx, 10, N);
 	Eigen::Map<const Eigen::VectorXd> r(r_std.data(), r_std.size());
 
 
-	/* ---- operators --------------------------------------*/
-
-	std::vector<double> V_std = V_HO(r_std);
-	Eigen::SparseMatrix<double> V = diagSparse(V_std);
-
-	int l = 2;
-	Eigen::SparseMatrix<double> L2 = centrifugalTerm(l, r);
-
-	auto T = T_sparse(N, dx);
+	int l = 0;
 
 	/*---------- Hamiltonian -------------------------------*/
 
-	Eigen::SparseMatrix<double> H = T + V + L2;
+	for (int l = 0; l <= 2; ++l) { // s,p,d
 
-	
+		Eigen::SparseMatrix<double> H = H_nl(l, N, dx, r_std);
 
+		// convert to Spectra:
+		Spectra::SparseSymMatProd<double> op(H);
 
-	
+		int k = 5; // number of eigenvals to collect
+		int m = 2 * k + 1; // size of Krylov subspace (~2k)
+
+		Spectra::SymEigsSolver<Spectra::SparseSymMatProd<double>> eigs(op, k, m);
+
+		eigs.init();
+		int nconv = eigs.compute(Spectra::SortRule::SmallestAlge);
+
+		Eigen::VectorXd eigvals = eigs.eigenvalues();
+
+		std::cout << "l = " << l << " eigenvalues (MeV):\n" << eigvals.transpose() << "\n\n";
+	}
 
 
 }

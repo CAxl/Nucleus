@@ -1,9 +1,11 @@
 #include <Eigen/Sparse>
 #include <Eigen/Dense>
+#include <vector>
 
 #include "hamil.h"
 #include "PhysConstants.h"
-
+#include "potentials.h"
+#include "matrix.h"
 
 
 
@@ -29,6 +31,25 @@ Eigen::SparseMatrix<double> T_sparse(int N, double dx)
 	T.setFromTriplets(triplets.begin(), triplets.end());
 	
 	return T;
+}
+
+
+Eigen::SparseMatrix<double> H_nl(int l, int N, double dx, const std::vector<double>& r_std)
+{
+	Eigen::Map<const Eigen::VectorXd> r(r_std.data(), r_std.size());
+
+	// potential
+	std::vector<double> V_std = V_HO(r_std);
+	Eigen::SparseMatrix<double> V = diagSparse(V_std);
+
+	// kinetic
+	auto T = T_sparse(N, dx);
+
+	// cent
+	Eigen::SparseMatrix<double> L2 = centrifugalTerm(l, r);
+
+	
+	return T + V + L2;
 }
 
 

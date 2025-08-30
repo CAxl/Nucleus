@@ -7,6 +7,7 @@
 
 
 Eigen::SparseMatrix<double> T_sparse(int N, double dx);
+Eigen::SparseMatrix<double> H_nl(int l, int N, double dx, const std::vector<double>& r_std);
 
 
 inline Eigen::SparseMatrix<double> centrifugalTerm(int l, const Eigen::VectorXd& r)   // grid points (size N)
