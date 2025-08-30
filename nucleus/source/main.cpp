@@ -30,25 +30,27 @@ int main() {
 
 	/*---------- Hamiltonian -------------------------------*/
 
-	//for (int l = 0; l <= 2; ++l) { // s,p,d
 
-	//	Eigen::SparseMatrix<double> H = H_nl(l, N, dx, r_std);
 
-	//	// convert to Spectra:
-	//	Spectra::SparseSymMatProd<double> op(H);
+	for (int l = 0; l <= 2; ++l) { // s,p,d
 
-	//	int k = 5; // number of eigenvals to collect
-	//	int m = 10 * k + 1; // size of Krylov subspace (~2k)
+		Eigen::SparseMatrix<double> H = H_nl(l, N, dx, r_std);
 
-	//	Spectra::SymEigsSolver<Spectra::SparseSymMatProd<double>> eigs(op, k, m);
+		// convert to Spectra:
+		Spectra::SparseSymMatProd<double> op(H);
 
-	//	eigs.init();
-	//	int nconv = eigs.compute(Spectra::SortRule::SmallestAlge);
+		int k = 5; // number of eigenvals to collect
+		int m = 10 * k + 1; // size of Krylov subspace (~2k)
 
-	//	Eigen::VectorXd eigvals = eigs.eigenvalues();
+		Spectra::SymEigsSolver<Spectra::SparseSymMatProd<double>> eigs(op, k, m);
 
-	//	std::cout << "l = " << l << " eigenvalues (MeV):\n" << eigvals.transpose() << "\n\n";
-	//}
+		eigs.init();
+		int nconv = eigs.compute(Spectra::SortRule::SmallestAlge);
+
+		Eigen::VectorXd eigvals = eigs.eigenvalues();
+
+		std::cout << "l = " << l << " eigenvalues (MeV):\n" << eigvals.transpose() << "\n\n";
+	}
 
 
 

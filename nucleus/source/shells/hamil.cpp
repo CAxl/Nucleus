@@ -39,7 +39,10 @@ Eigen::SparseMatrix<double> H_nl(int l, int N, double dx, const std::vector<doub
 	Eigen::Map<const Eigen::VectorXd> r(r_std.data(), r_std.size());
 
 	// potential
-	std::vector<double> V_std = V_HO(r_std);
+	/*std::vector<double> V_std = V_HO(r_std);
+	Eigen::SparseMatrix<double> V = diagSparse(V_std);*/
+
+	std::vector<double> V_std = V_WS(r_std, 16, 8);	// WS potential for 16O
 	Eigen::SparseMatrix<double> V = diagSparse(V_std);
 
 	// kinetic

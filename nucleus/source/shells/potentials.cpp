@@ -26,14 +26,16 @@ std::vector<double> V_HO(const std::vector<double>& r)
 	return V;
 }
 
-std::vector<double> V_WS(std::vector<double>& r, int A) {
+std::vector<double> V_WS(const std::vector<double>& r, int A, int Z) {	// A-dependence of V_0, we use Suhonen's example parametrization on pp. 44
 
 	std::vector<double> V(r.size());
 
-	double V_0 = 50;
-	double r_0 = 1.5;
-	double R = r_0 * std::pow(A, 1 / 3);
-	double a = 0.5;
+	int N = A - Z;
+	double V_0 = 51 - 33 * (N - Z) / A;	// for now: we can only deal with neutrons ('+' for protons, suhonen)
+
+	double r_0 = 1.27;
+	double R = r_0 * std::pow(A, 1.0 / 3.0);
+	double a = 0.67;
 
 
 

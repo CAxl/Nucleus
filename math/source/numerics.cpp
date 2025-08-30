@@ -36,3 +36,12 @@ std::vector<double> ddiff(std::vector<double>& f, double dx) {
 
 	return d2f;
 }
+
+
+
+
+
+
+
+// Euler integrator
+

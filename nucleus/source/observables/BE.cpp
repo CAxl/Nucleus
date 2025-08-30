@@ -14,7 +14,7 @@ int delta(int a, int b) { // Kroenecker delta
 std::array<double,2> BindingEnergy(int A, int Z) { // Weizsäcker mass formula
 
 	/*
-	Calculates the total Binding energy (BE) of nucleus with A, Z. 
+	Calculates the total Binding energy (B, BE) of nucleus with A, Z. 
 	
 	Returns a size-2 array with indexing:
 	[0] -> total binding energy
