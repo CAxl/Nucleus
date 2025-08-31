@@ -4,10 +4,10 @@
 #include <Eigen/Dense>
 
 #include "PhysConstants.h"
-
+#include "potentials.h" // for PotentialTerm template
 
 Eigen::SparseMatrix<double> T_sparse(int N, double dx);
-Eigen::SparseMatrix<double> H_nl(int l, int N, double dx, const std::vector<double>& r_std);
+Eigen::SparseMatrix<double> H_nl(int l, const std::vector<double>& r_std, double dx, const std::vector<PotentialTerm>& potentials);
 
 
 inline Eigen::SparseMatrix<double> centrifugalTerm(int l, const Eigen::VectorXd& r)   // grid points (size N)

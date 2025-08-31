@@ -34,25 +34,28 @@ Eigen::SparseMatrix<double> T_sparse(int N, double dx)
 }
 
 
-Eigen::SparseMatrix<double> H_nl(int l, int N, double dx, const std::vector<double>& r_std)
+// Hamiltonian builder: takes l, r-grid, dx, and list of PotentialTerms
+Eigen::SparseMatrix<double> H_nl(
+	int l,
+	const std::vector<double>& r_std,
+	double dx,
+	const std::vector<PotentialTerm>& potentials)
 {
 	Eigen::Map<const Eigen::VectorXd> r(r_std.data(), r_std.size());
 
-	// potential
-	/*std::vector<double> V_std = V_HO(r_std);
-	Eigen::SparseMatrix<double> V = diagSparse(V_std);*/
-
-	std::vector<double> V_std = V_WS(r_std, 16, 8);	// WS potential for 16O
-	Eigen::SparseMatrix<double> V = diagSparse(V_std);
-
 	// kinetic
-	auto T = T_sparse(N, dx);
+	auto T = T_sparse((int)r.size(), dx);
 
-	// cent
+	// centrifugal
 	Eigen::SparseMatrix<double> L2 = centrifugalTerm(l, r);
 
-	
-	return T + V + L2;
+	// total potential
+	Eigen::SparseMatrix<double> Vtot(r.size(), r.size());
+	Vtot.setZero();
+	for (const auto& pot : potentials)
+		Vtot += pot(r_std);
+
+	return T + L2 + Vtot;
 }
 
 
