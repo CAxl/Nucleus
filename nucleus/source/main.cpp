@@ -28,8 +28,9 @@ int main() {
 	for (int i = 0; i < N; ++i) r[i] = (i + 1) * dx; // start at dx to avoid r=0 singularity
 
 
-	// for now (no SO)
-	int l = 0;
+	// AM (0p_3/2)
+	int l = 1;
+	double j = 1.5;
 
 
 	// oxygen
@@ -42,13 +43,14 @@ int main() {
 	// choose potentials
 	std::vector<PotentialTerm> pots;
 	pots.push_back(WS_potential(A, Z));
-	//pots.push_back(Coulomb_potential(A, Z)); // only include for protons
+	pots.push_back(Coulomb_potential(A, Z)); // only include for protons
+	pots.push_back(SO_potential(l, j, A, Z));
 
 	// example: compute Hamiltonian for s-wave (l=0)
-	Eigen::SparseMatrix<double> H = H_nl(0, r, dx, pots);
+	Eigen::SparseMatrix<double> H = H_nl(l, r, dx, pots);
 
 
-	// Spectra eigensolver
+	// spectra eigensolver
 	int k = 5;				// eigenvalues wanted
 	int m = 10 * k;			// Krylov subspace
 	Spectra::SparseSymMatProd<double> op(H);
@@ -59,7 +61,7 @@ int main() {
 
 
 	Eigen::VectorXd eigvals = eigs.eigenvalues();
-	std::cout << "Eigenvalues for O16 (s-wave, l=0):\n" << eigvals << "\n";
+	std::cout << "Eigenvalues for O16 (p-wave, l=1):\n" << eigvals << "\n";
 
 
 
@@ -70,6 +72,22 @@ int main() {
 	double BE_per_A = BindingEnergy(A, Z)[1];
 	std::cout << "Binding energy 16O = " << BE << std::endl;
 	std::cout << "Binding energy per nucleon = " << BE_per_A << std::endl;
+
+
+
+
+	/* (x,v(r)) data */
+	std::vector<double> V_tot(r.size());  
+	std::vector<double> VC = V_C(r, A, Z);
+	std::vector<double> VWS = V_WS(r, A, Z);
+
+	for (size_t i = 0; i < r.size(); ++i) {
+		V_tot[i] = VC[i] + VWS[i];
+	}
+
+	write_xy_to_file(r, V_tot, "../../../../Output/V_WS+V_C");
+	write_xy_to_file(r, VC, "../../../../Output/V_C");
+	write_xy_to_file(r, VWS, "../../../../Output/V_WS");
 
 
 }

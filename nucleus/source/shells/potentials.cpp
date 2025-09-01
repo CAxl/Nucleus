@@ -35,7 +35,7 @@ std::vector<double> V_WS(const std::vector<double>& r, int A, int Z) {	// A-depe
 	std::vector<double> V(r.size());
 
 	int N = A - Z;
-	double V_0 = 51 - 33 * (N - Z) / A;	// for now: we can only deal with neutrons ('+' for protons, suhonen)
+	double V_0 = 51 - 33 * (N - Z) / A;	// for now: we can only deal with neutrons ('+' for protons, suhonen) Note for N=Z (16O): A dep. vanishes.
 
 	double r_0 = 1.27;
 	double R = r_0 * std::pow(A, 1.0 / 3.0);
@@ -76,10 +76,47 @@ std::vector<double> V_C(const std::vector<double>& r, int A, int Z)
 	return V;
 }
 
-//std::vector<double> V_SO(const std::vector<double>& r, int l, double j, int A, int Z)
-//{
-//	
-//}
+std::vector<double> V_SO(const std::vector<double>& r, int l, double j, int A, int Z)
+{
+	std::vector<double> V;
+	V.reserve(r.size());
+
+	int N = A - Z;
+	double V_0 = 51 + 33 * (N - Z) / A;	// again, + for protons
+
+
+	// relevant constants
+	double r0 = 1.27;
+	const double v0LS = 0.44 * V_0;
+	const double pref = (r0 * r0) * v0LS;
+	const double a = 0.67;
+	double R = r0 * pow(A, 1.0 / 3.0);
+
+	// <L*S>
+	const double s = 0.5;
+	const double ls_factor = 0.5 * (j * (j + 1.0) - double(l) * (l + 1.0) - s * (s + 1.0));	// potentially want to handle input of l/j better later
+
+	for (double ri : r)
+	{
+		if (ri <= 0.0) { V.push_back(0.0); continue; }
+
+		// analytic derivative df/dr of f(r) = 1/(1+e^{(r-R)/a})
+		const double exp_term = std::exp((ri - R) / a);
+		const double denom = (1.0 + exp_term);
+		const double dfdr = -(1.0 / a) * (exp_term / (denom * denom));
+
+		// v_LS(r) = pref * (1/r) * dfdr
+		const double vls_r = pref * (1.0 / ri) * dfdr;
+
+		// multiply by angular <L*S>
+		V.push_back(vls_r * ls_factor);
+	}
+
+	return V;
+
+
+	
+}
 
 
 
@@ -106,12 +143,12 @@ PotentialTerm Coulomb_potential(int A, int Z)
 		};
 }
 
-//PotentialTerm SO_potential(int l, double j, int A, int Z)
-//{
-//	return [=](const std::vector<double>& r) {
-//		return diagSparse(V_SO(r, l, j, A, Z));
-//		};
-//}
+PotentialTerm SO_potential(int l, double j, int A, int Z)
+{
+	return [=](const std::vector<double>& r) {
+		return diagSparse(V_SO(r, l, j, A, Z));
+		};
+}
 
 
 
