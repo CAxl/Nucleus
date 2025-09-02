@@ -41,3 +41,52 @@ Eigen::VectorXd solve_mean_field(
     return eigs.eigenvalues();
 
 }
+
+
+std::vector<Eigen::VectorXd> solve_mean_field_wavefuncs(
+    int A, int Z,
+    int l, double j,
+    const std::vector<double>& r, double dx,
+    bool is_proton,
+    int n_eigs
+)
+{
+    // build potentials
+    std::vector<PotentialTerm> V;
+    V.push_back(WS_potential(A, Z));
+    if (is_proton) V.push_back(Coulomb_potential(A, Z));    // only for protons
+    V.push_back(SO_potential(l, j, A, Z));
+
+    // build Hamil
+    Eigen::SparseMatrix<double> H = H_nl(l, r, dx, V);
+
+    // Spectra eigensolver
+    int m = 10 * n_eigs;    // krylov subspace dimension
+
+    Spectra::SparseSymMatProd<double> op(H);
+    Spectra::SymEigsSolver<Spectra::SparseSymMatProd<double>> eigs(op, n_eigs, m);
+
+    eigs.init();
+    int nconv = eigs.compute(Spectra::SortRule::SmallestAlge);
+
+    if (eigs.info() != Spectra::CompInfo::Successful)
+    {
+        std::cerr << "Eigensolver failed!" << std::endl;
+        return {};
+    }
+
+    // collect eigenvectors
+    Eigen::MatrixXd eigvecs = eigs.eigenvectors(); 
+    std::vector<Eigen::VectorXd> wavefuncs;
+    for (int i = 0; i < eigvecs.cols(); i++)
+    {
+        wavefuncs.push_back(eigvecs.col(i));
+    }
+
+    return wavefuncs;
+
+}
+
+
+
+

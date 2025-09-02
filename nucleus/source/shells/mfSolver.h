@@ -16,13 +16,15 @@ Eigen::VectorXd solve_mean_field(
     int n_eigs = 5
 );
 
-// Expand eigenfunctions in HO basis
-//std::vector<double> expand_on_HO(
-//    const Eigen::MatrixXd& eigenvecs,
-//    const std::vector<double>& r,
-//    int l,
-//    double hw, int nmax
-//);
+std::vector<Eigen::VectorXd> solve_mean_field_wavefuncs(
+    int A, int Z,
+    int l, double j,
+    const std::vector<double>& r, double dx,
+    bool is_proton,
+    int n_eigs
+);
+
+
 
 
 

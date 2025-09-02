@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>  // for std::minmax_element
 #include <fstream>
+#include <Eigen/Dense>
 
 
 #include "util.h"
@@ -40,6 +41,26 @@ void print_matrix(const std::vector<double>& matrix) {
 
 void write_xy_to_file(const std::vector<double>& x, const std::vector<double>& y, const std::string& filename) {
     if (x.size() != y.size()) {
+        std::cerr << "Vectors x and y must have the same size!" << std::endl;
+        return;
+    }
+
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
+
+    for (size_t i = 0; i < x.size(); ++i) {
+        file << x[i] << " " << y[i] << "\n";
+    }
+
+    file.close();
+}
+
+// overload for Eigen::VectorXd
+void write_xy_to_file(const std::vector<double>& x, const Eigen::VectorXd& y, const std::string& filename) {
+    if (x.size() != static_cast<size_t>(y.size())) {
         std::cerr << "Vectors x and y must have the same size!" << std::endl;
         return;
     }

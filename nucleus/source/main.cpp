@@ -41,45 +41,34 @@ int main() {
 		std::cout << "Proton eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
 	}
 
-	// neutron orbital: 0s_1/2
+
+	// neutron 0s1/2
 	{
 		int l = 0;
 		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
+		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, false, 5);
+
+		write_xy_to_file(r, wfns[0], "../../../../Output/n_wf_s1_2_1.txt");
 	}
 
-	// proton orbital: 0p_3/2
+	// neutron 0p_3/2
 	{
 		int l = 1;
 		double j = 1.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0p3/2):\n" << eigvals << "\n";
+		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, false, 5);
+
+		write_xy_to_file(r, wfns[0], "../../../../Output/n_wf_p3_2_1.txt");
 	}
 
-	// neutron orbital: 0p_3/2
-	{
-		int l = 1;
-		double j = 1.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0p3/2):\n" << eigvals << "\n";
-	}
-
-	// proton orbital: 0p_1/2
+	// neutron 0p_1/2
 	{
 		int l = 1;
 		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0p1/2):\n" << eigvals << "\n";
-	}
+		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, false, 5);
 
-	// neutron orbital: 0p_1/2
-	{
-		int l = 1;
-		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0p1/2):\n" << eigvals << "\n";
+		write_xy_to_file(r, wfns[0], "../../../../Output/n_wf_p1_2_1.txt");
 	}
+	
 
 
 

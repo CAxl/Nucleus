@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <Eigen/Dense>
 
 #include "numerics.h"
 
@@ -38,7 +39,28 @@ std::vector<double> ddiff(std::vector<double>& f, double dx) {
 }
 
 
+double simpson(const std::vector<double>& x, const Eigen::VectorXd& y)
+{
+	int N = x.size();
+	if (N < 2 || N != y.size()) {
+		throw std::runtime_error("Invalid input size for Simpson integration");
+	}
 
+	double h = x[1] - x[0]; // assume uniform spacing
+	double sum = y[0] + y[N - 1];
+
+	for (int i = 1; i < N - 1; i++)
+	{
+		if (i % 2 == 0) {
+			sum += 2.0 * y[i];
+		}
+		else {
+			sum += 4.0 * y[i];
+		}
+	}
+
+	return sum * h / 3.0;
+}
 
 
 
