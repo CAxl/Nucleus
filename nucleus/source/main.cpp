@@ -14,6 +14,7 @@
 #include "shells/potentials.h"
 #include "shells/hamil.h"
 #include "observables/BE.h"
+#include "shells/mfSolver.h"
 
 
 int main() {
@@ -27,41 +28,59 @@ int main() {
 	std::vector<double> r(N);
 	for (int i = 0; i < N; ++i) r[i] = (i + 1) * dx; // start at dx to avoid r=0 singularity
 
-
-	// AM (0p_3/2)
-	int l = 1;
-	double j = 1.5;
-
-
 	// oxygen
 	int A = 16;
 	int Z = 8;
 	
 
-	/*---------- Hamiltonian -------------------------------*/
+	// proton orbital: 0s_1/2
+	{
+		int l = 0;
+		double j = 0.5;
+		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+		std::cout << "Proton eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
+	}
 
-	// choose potentials
-	std::vector<PotentialTerm> pots;
-	pots.push_back(WS_potential(A, Z));
-	pots.push_back(Coulomb_potential(A, Z)); // only include for protons
-	pots.push_back(SO_potential(l, j, A, Z));
+	// neutron orbital: 0s_1/2
+	{
+		int l = 0;
+		double j = 0.5;
+		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+		std::cout << "Neutron eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
+	}
 
-	// example: compute Hamiltonian for s-wave (l=0)
-	Eigen::SparseMatrix<double> H = H_nl(l, r, dx, pots);
+	// proton orbital: 0p_3/2
+	{
+		int l = 1;
+		double j = 1.5;
+		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+		std::cout << "Proton eigenvalues (O16, 0p3/2):\n" << eigvals << "\n";
+	}
 
+	// neutron orbital: 0p_3/2
+	{
+		int l = 1;
+		double j = 1.5;
+		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+		std::cout << "Neutron eigenvalues (O16, 0p3/2):\n" << eigvals << "\n";
+	}
 
-	// spectra eigensolver
-	int k = 5;				// eigenvalues wanted
-	int m = 10 * k;			// Krylov subspace
-	Spectra::SparseSymMatProd<double> op(H);
-	Spectra::SymEigsSolver<Spectra::SparseSymMatProd<double>> eigs(op, k, m);
+	// proton orbital: 0p_1/2
+	{
+		int l = 1;
+		double j = 0.5;
+		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+		std::cout << "Proton eigenvalues (O16, 0p1/2):\n" << eigvals << "\n";
+	}
 
-	eigs.init();
-	int nconv = eigs.compute(Spectra::SortRule::SmallestAlge);
+	// neutron orbital: 0p_1/2
+	{
+		int l = 1;
+		double j = 0.5;
+		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+		std::cout << "Neutron eigenvalues (O16, 0p1/2):\n" << eigvals << "\n";
+	}
 
-
-	Eigen::VectorXd eigvals = eigs.eigenvalues();
-	std::cout << "Eigenvalues for O16 (p-wave, l=1):\n" << eigvals << "\n";
 
 
 
@@ -91,6 +110,10 @@ int main() {
 
 
 }
+
+
+
+
 
 
 

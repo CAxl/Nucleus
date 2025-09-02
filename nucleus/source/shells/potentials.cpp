@@ -114,8 +114,6 @@ std::vector<double> V_SO(const std::vector<double>& r, int l, double j, int A, i
 
 	return V;
 
-
-	
 }
 
 
@@ -149,6 +147,9 @@ PotentialTerm SO_potential(int l, double j, int A, int Z)
 		return diagSparse(V_SO(r, l, j, A, Z));
 		};
 }
+
+
+
 
 
 
