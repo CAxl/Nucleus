@@ -21,7 +21,8 @@ std::vector<Eigen::VectorXd> solve_mean_field_wavefuncs(
     int l, double j,
     const std::vector<double>& r, double dx,
     bool is_proton,
-    int n_eigs
+    int n_eigs,
+    bool return_R = false
 );
 
 

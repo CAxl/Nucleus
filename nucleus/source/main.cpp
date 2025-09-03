@@ -42,33 +42,14 @@ int main() {
 	}
 
 
-	// neutron 0s1/2
+	// proton 0s1/2
 	{
 		int l = 0;
 		double j = 0.5;
-		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, false, 5);
+		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, true, 5, true);// last true flag is for R = u/r
 
-		write_xy_to_file(r, wfns[0], "../../../../Output/n_wf_s1_2_1.txt");
+		write_xy_to_file(r, wfns[0], "../../../../Output/p_Rwf_s1_2_1.txt");
 	}
-
-	// neutron 0p_3/2
-	{
-		int l = 1;
-		double j = 1.5;
-		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, false, 5);
-
-		write_xy_to_file(r, wfns[0], "../../../../Output/n_wf_p3_2_1.txt");
-	}
-
-	// neutron 0p_1/2
-	{
-		int l = 1;
-		double j = 0.5;
-		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, false, 5);
-
-		write_xy_to_file(r, wfns[0], "../../../../Output/n_wf_p1_2_1.txt");
-	}
-	
 
 
 

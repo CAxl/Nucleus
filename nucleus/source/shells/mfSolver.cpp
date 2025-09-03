@@ -48,7 +48,8 @@ std::vector<Eigen::VectorXd> solve_mean_field_wavefuncs(
     int l, double j,
     const std::vector<double>& r, double dx,
     bool is_proton,
-    int n_eigs
+    int n_eigs,
+    bool return_R
 )
 {
     // build potentials
@@ -78,14 +79,30 @@ std::vector<Eigen::VectorXd> solve_mean_field_wavefuncs(
     // collect eigenvectors
     Eigen::MatrixXd eigvecs = eigs.eigenvectors(); 
     std::vector<Eigen::VectorXd> wavefuncs;
+
     for (int i = 0; i < eigvecs.cols(); i++)
     {
-        wavefuncs.push_back(eigvecs.col(i));
+        if (return_R)
+        {
+            Eigen::VectorXd Rvec(r.size());
+            for (int k = 0; k < r.size(); k++)
+            {
+                Rvec[k] = eigvecs(k, i) / r[k];  // R(r) = u(r)/r
+            }
+            wavefuncs.push_back(Rvec);
+        }
+        else
+        {
+            wavefuncs.push_back(eigvecs.col(i)); // raw u(r)
+        }
     }
 
     return wavefuncs;
 
 }
+
+
+
 
 
 
