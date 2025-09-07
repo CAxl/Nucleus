@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 
 #include "numerics.h"
 
@@ -38,7 +39,6 @@ std::vector<double> ddiff(std::vector<double>& f, double dx) {
 	return d2f;
 }
 
-
 double simpson(const std::vector<double>& x, const Eigen::VectorXd& y)
 {
 	int N = x.size();
@@ -62,8 +62,14 @@ double simpson(const std::vector<double>& x, const Eigen::VectorXd& y)
 	return sum * h / 3.0;
 }
 
+Eigen::VectorXd normalize_wavefunction(const std::vector<double>& x, const Eigen::VectorXd& psi)
+{
+	double norm = std::sqrt(simpson(x, psi.array().square().matrix()));
+	
+	return psi / norm;
+}
 
 
 
-// Euler integrator
+
 

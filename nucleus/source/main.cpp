@@ -7,7 +7,6 @@
 #include <numeric>
 #include <cmath>
 
-
 #include "matrix.h"
 #include "util.h"
 #include "numerics.h"
@@ -22,7 +21,7 @@ int main() {
 
 	// discretization of x-range
 	int N = 1000;
-	double dx = 0.01;
+	double dx = 0.1;
 
 	// build r-grid
 	std::vector<double> r(N);
@@ -31,6 +30,9 @@ int main() {
 	// oxygen
 	int A = 16;
 	int Z = 8;
+
+	// print r test
+	for (int i = 0; i < r.size(); ++i) std::cout << r[i] << std::endl;
 	
 
 	// proton orbital: 0s_1/2
@@ -46,9 +48,24 @@ int main() {
 	{
 		int l = 0;
 		double j = 0.5;
-		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, true, 5, true);// last true flag is for R = u/r
+		auto wfns = solve_mean_field_wavefuncs(A, Z, l, j, r, dx, true, 5, false);// last true flag is for R = u/r
 
-		write_xy_to_file(r, wfns[0], "../../../../Output/p_Rwf_s1_2_1.txt");
+		Eigen::MatrixXd u_norm = normalize_wavefunction(r, wfns[0]);
+
+		for (int i = 0; i < r.size(); ++i) {
+			std::cout << wfns[0][i] << std::endl;
+		}
+
+		/* 
+		note 7/9: 
+		- norm of R not correct! \int r^2 R(r)\: dr, whereas \int u(r)\: dr
+		- If I actually write the u_norm() to xy-file and plot (u_norm)^2 in python I get 1 (FOR u(r) ONLY)
+		
+		
+		*/ 
+		write_xy_to_file(r, u_norm, "../../../../Output/p_norm_test.txt");
+		//write_xy_to_file(r, wfns[0], "../../../../Output/p_Rwf_s1_2_1.txt");
+		//write_xy_to_file(r, u_norm, "../../../../Output/p_NormRwf_s1_2_1.txt");
 	}
 
 
@@ -74,9 +91,11 @@ int main() {
 		V_tot[i] = VC[i] + VWS[i];
 	}
 
-	write_xy_to_file(r, V_tot, "../../../../Output/V_WS+V_C");
-	write_xy_to_file(r, VC, "../../../../Output/V_C");
-	write_xy_to_file(r, VWS, "../../../../Output/V_WS");
+	//write_xy_to_file(r, V_tot, "../../../../Output/V_WS+V_C");
+	//write_xy_to_file(r, VC, "../../../../Output/V_C");
+	//write_xy_to_file(r, VWS, "../../../../Output/V_WS");
+
+	
 
 
 }
