@@ -7,13 +7,14 @@
 #include <numeric>
 #include <cmath>
 
-#include "matrix.h"
-#include "util.h"
-#include "numerics.h"
-#include "shells/potentials.h"
-#include "shells/hamil.h"
-#include "observables/BE.h"
-#include "shells/mfSolver.h"
+#include <matrix.h>
+#include <util.h>
+#include <numerics.h>
+#include <shells/potentials.h>
+#include <shells/hamil.h>
+#include <shells/mfSolver.h>
+#include <observables/BE.h>
+
 
 
 int main() {

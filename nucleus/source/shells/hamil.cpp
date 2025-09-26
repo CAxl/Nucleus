@@ -2,10 +2,10 @@
 #include <Eigen/Dense>
 #include <vector>
 
-#include "hamil.h"
+#include <shells/hamil.h>
 #include "PhysConstants.h"
-#include "potentials.h"
-#include "matrix.h"
+#include <shells/potentials.h>
+#include <matrix.h>
 
 
 

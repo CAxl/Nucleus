@@ -3,15 +3,12 @@ cmake_minimum_required(VERSION 3.21)
 project(math)
 file(GLOB_RECURSE SourceFiles "source/*.cpp")
 
-add_library("${PROJECT_NAME}" "${SourceFiles}")
+add_library(${PROJECT_NAME} ${SourceFiles})
 
-
-
-set(EigenLib "${PROJECT_SOURCE_DIR}/libs/")
-
-target_include_directories("${PROJECT_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/source", 
-PUBLIC "${PROJECT_SOURCE_DIR}/include" 
-"${PROJECT_SOURCE_DIR}/libs/"
-"${PROJECT_SOURCE_DIR}/libs/Spectra/include/"
+# Public include dirs: accessible to anything that links against math
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/libs
+        ${PROJECT_SOURCE_DIR}/libs/Spectra/include
 )
-

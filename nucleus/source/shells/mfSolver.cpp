@@ -1,6 +1,6 @@
-#include "mfSolver.h"
-#include "hamil.h"
-#include "potentials.h"
+#include <shells/mfSolver.h>
+#include <shells/hamil.h>
+#include <shells/potentials.h>
 #include <Spectra/SymEigsSolver.h>
 #include <Spectra/MatOp/SparseSymMatProd.h>
 #include <iostream>
