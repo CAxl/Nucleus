@@ -3,7 +3,7 @@
 #include <vector>
 
 #include <shells/hamil.h>
-#include "PhysConstants.h"
+#include <PhysConstants.h>
 #include <shells/potentials.h>
 #include <matrix.h>
 

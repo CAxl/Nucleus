@@ -1,8 +1,9 @@
 #include <vector>
-#include "matrix.h"
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
+
+#include <matrix.h>
 
 
 std::vector<double> range(double start, double stop, int points)

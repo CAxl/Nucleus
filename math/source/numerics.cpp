@@ -3,7 +3,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
-#include "numerics.h"
+#include <numerics.h>
 
 
 

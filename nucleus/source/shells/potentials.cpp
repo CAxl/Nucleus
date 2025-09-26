@@ -1,8 +1,9 @@
 #include <vector>
 #include <cmath>
+
 #include <shells/potentials.h>
 #include <matrix.h> // for diagSparse()
-#include "PhysConstants.h"
+#include <PhysConstants.h>
 
 
 
