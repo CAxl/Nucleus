@@ -1,6 +1,9 @@
 #include <cmath>
 #include <array>
 
+#include "PhysConstants.h"
+#include "observables/BE.h"
+
 
 
 
@@ -40,6 +43,16 @@ std::array<double,2> BindingEnergy(int A, int Z) { // Weizsäcker mass formula
 	double BpN = B_tot / A;
 
 	return { B_tot, BpN };
+}
+
+double Mass(int A, int Z)
+{
+	// calculate the binding energy
+	double B = BindingEnergy(A, Z)[0];
+
+	double Mc2 = Z * PhysConst::mH + (A - Z) * PhysConst::mN - B;
+
+	return Mc2;
 }
 
 

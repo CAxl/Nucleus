@@ -161,6 +161,8 @@ int main() {
 	//std::cout << "Binding energy per nucleon = " << BE_per_A << std::endl;
 
  //// ----------------------------------------------------------------------------
+	double M = Mass(A, Z);
+	std::cout << "Mass of 16O = " << M << " MeV" << std::endl;
 
 
 	///* (x,v(r)) data */
