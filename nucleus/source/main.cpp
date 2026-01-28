@@ -39,88 +39,88 @@ int main() {
 
 	/* Tabulating single-particle energies for proton orbitals in 16O */
 
-	// proton orbital 16O: s_1/2
-	{
-		int l = 0;
-		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
-	}
+	//// proton orbital 16O: s_1/2
+	//{
+	//	int l = 0;
+	//	double j = 0.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+	//	std::cout << "Proton eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
+	//}
 
-	// proton orbital 16O: p_3/2
-	{
-		int l = 1;
-		double j = 1.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0p_3/2):\n" << eigvals << "\n";
-	}
+	//// proton orbital 16O: p_3/2
+	//{
+	//	int l = 1;
+	//	double j = 1.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+	//	std::cout << "Proton eigenvalues (O16, 0p_3/2):\n" << eigvals << "\n";
+	//}
 
-	// proton orbital 16O: p_1/2
-	{
-		int l = 1;
-		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0p_1/2):\n" << eigvals << "\n";
-	}
+	//// proton orbital 16O: p_1/2
+	//{
+	//	int l = 1;
+	//	double j = 0.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+	//	std::cout << "Proton eigenvalues (O16, 0p_1/2):\n" << eigvals << "\n";
+	//}
 
-	// proton orbital 16O: d_5/2
-	{
-		int l = 2;
-		double j = 2.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0d_5/2):\n" << eigvals << "\n";
-	}
+	//// proton orbital 16O: d_5/2
+	//{
+	//	int l = 2;
+	//	double j = 2.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+	//	std::cout << "Proton eigenvalues (O16, 0d_5/2):\n" << eigvals << "\n";
+	//}
 
-	// proton orbital 16O: d_3/2
-	{
-		int l = 2;
-		double j = 1.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
-		std::cout << "Proton eigenvalues (O16, 0d_3/2):\n" << eigvals << "\n";
-	}
+	//// proton orbital 16O: d_3/2
+	//{
+	//	int l = 2;
+	//	double j = 1.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, true, 5);
+	//	std::cout << "Proton eigenvalues (O16, 0d_3/2):\n" << eigvals << "\n";
+	//}
 
 
-	/* Tablulating single-particle energies for neutron orbitals in 16O */
-	
-	// neutron orbital 16O: s_1/2
-	{
-		int l = 0;
-		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
-	}
+	///* Tablulating single-particle energies for neutron orbitals in 16O */
+	//
+	//// neutron orbital 16O: s_1/2
+	//{
+	//	int l = 0;
+	//	double j = 0.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+	//	std::cout << "Neutron eigenvalues (O16, 0s1/2):\n" << eigvals << "\n";
+	//}
 
-	// neutron orbital 16O: p_3/2
-	{
-		int l = 1;
-		double j = 1.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0p_3/2):\n" << eigvals << "\n";
-	}
+	//// neutron orbital 16O: p_3/2
+	//{
+	//	int l = 1;
+	//	double j = 1.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+	//	std::cout << "Neutron eigenvalues (O16, 0p_3/2):\n" << eigvals << "\n";
+	//}
 
-	// neutron orbital 16O: p_1/2
-	{
-		int l = 1;
-		double j = 0.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0p_1/2):\n" << eigvals << "\n";
-	}
+	//// neutron orbital 16O: p_1/2
+	//{
+	//	int l = 1;
+	//	double j = 0.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+	//	std::cout << "Neutron eigenvalues (O16, 0p_1/2):\n" << eigvals << "\n";
+	//}
 
-	// neutron orbital 16O: d_5/2
-	{
-		int l = 2;
-		double j = 2.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0d_5/2):\n" << eigvals << "\n";
-	}
+	//// neutron orbital 16O: d_5/2
+	//{
+	//	int l = 2;
+	//	double j = 2.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+	//	std::cout << "Neutron eigenvalues (O16, 0d_5/2):\n" << eigvals << "\n";
+	//}
 
-	// neutron orbital 16O: d_3/2
-	{
-		int l = 2;
-		double j = 1.5;
-		Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
-		std::cout << "Neutron eigenvalues (O16, 0d_3/2):\n" << eigvals << "\n";
-	}
+	//// neutron orbital 16O: d_3/2
+	//{
+	//	int l = 2;
+	//	double j = 1.5;
+	//	Eigen::VectorXd eigvals = solve_mean_field(A, Z, l, j, r, dx, false, 5);
+	//	std::cout << "Neutron eigenvalues (O16, 0d_3/2):\n" << eigvals << "\n";
+	//}
 
 	/*--------------------------------------------------------------------------------------*/
 
@@ -155,10 +155,10 @@ int main() {
 	///* BE test */
 
 
-	//double BE = BindingEnergy(A, Z)[0];
-	//double BE_per_A = BindingEnergy(A, Z)[1];
-	//std::cout << "Binding energy 16O = " << BE << std::endl;
-	//std::cout << "Binding energy per nucleon = " << BE_per_A << std::endl;
+	double BE = BindingEnergy(A, Z)[0];
+	double BE_per_A = BindingEnergy(A, Z)[1];
+	std::cout << "Binding energy 16O = " << BE << std::endl;
+	std::cout << "Binding energy per nucleon = " << BE_per_A << std::endl;
 
  //// ----------------------------------------------------------------------------
 	double M = Mass(A, Z);
