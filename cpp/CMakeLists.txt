@@ -8,4 +8,5 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory("math")
 add_subdirectory("nucleus")
+add_subdirectory("visualizer")
 
