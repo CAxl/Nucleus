@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(OrbitalVisualizer)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 # ── Find system libraries (installed via apt) ────────────────────────────────
 find_package(OpenGL REQUIRED)
 find_package(GLEW   REQUIRED)
@@ -23,6 +20,7 @@ endif()
 function(add_visualizer target source)
     add_executable(${target} src/${source})
     target_link_libraries(${target} PRIVATE
+        math    # for future pipeline with ../math/
         OpenGL::GL
         GLEW::GLEW
         glfw
@@ -33,6 +31,7 @@ function(add_visualizer target source)
 endfunction()
 
 # ── Targets ──────────────────────────────────────────────────────────────────
+# rename these eventually
 add_visualizer(atom            atom.cpp)
 add_visualizer(atom_realtime   atom_realtime.cpp)
 add_visualizer(atom_raytracer  atom_raytracer.cpp)
